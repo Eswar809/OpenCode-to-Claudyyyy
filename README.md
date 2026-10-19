@@ -9,7 +9,7 @@ Existing community proxies in the wild suffer from broken tool calls, infinite t
 * **Full Anthropic `/v1/messages` & `/v1/messages/count_tokens` Parity:** Implements the complete Anthropic streaming SSE state machine (`message_start`, `content_block_start`, `content_block_delta`, `signature_delta`, `content_block_stop`, `message_delta`, `message_stop`) alongside non-streaming event folding. Token counting is computed conservatively on the transformed upstream payload so Claude Code triggers context compaction at the exact right threshold.
 
 
-* **Multi-Agent Fan-Out, Subagents & Dynamic Tool Resolution:** Built for parallel agent execution with a `10ms` burst-safe request pacer that prevents subagents from serializing behind a global lock. Tracks mid-conversation tool mutations (`tool_addition`, `tool_removal`, `tool_reference`, and `defer_loading`), normalizes schema argument aliases (`path` ↔ `file_path`, `cmd` ↔ `command`), and automatically injects required OpenCode v2 fingerprint tools (`read`, `shell`).
+* **Multi-Agent Fan-Out, Subagents & Dynamic Tool Resolution:** Built for parallel agent execution with a `10ms` burst-safe request pacer that prevents subagents from serializing behind a global lock.
 
 
 * **Native Web Search & Deep Research (`web_search_20250305`):** Because upstream OpenCode models cannot browse the live web, the gateway intercepts native `web_search_*` turns before model routing and executes them locally against **Exa (`mcp.exa.ai`)** and **Parallel (`search.parallel.ai`)** MCP endpoints. Supports `allowed_domains` and `blocked_domains` filtering, URL canonicalization, deduplication, and untrusted-evidence framing, returning native `server_tool_use` and `web_search_tool_result` blocks.
